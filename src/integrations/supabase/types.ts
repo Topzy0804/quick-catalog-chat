@@ -14,7 +14,213 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      order_items: {
+        Row: {
+          id: string
+          order_id: string
+          price_at_order: number
+          product_id: string | null
+          product_name: string
+          quantity: number
+        }
+        Insert: {
+          id?: string
+          order_id: string
+          price_at_order?: number
+          product_id?: string | null
+          product_name: string
+          quantity?: number
+        }
+        Update: {
+          id?: string
+          order_id?: string
+          price_at_order?: number
+          product_id?: string | null
+          product_name?: string
+          quantity?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_items_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_items_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          created_at: string
+          customer_name: string
+          customer_phone: string
+          id: string
+          payment_method: string
+          payment_status: string
+          seller_id: string
+          status: string
+          total_amount: number
+        }
+        Insert: {
+          created_at?: string
+          customer_name: string
+          customer_phone: string
+          id?: string
+          payment_method?: string
+          payment_status?: string
+          seller_id: string
+          status?: string
+          total_amount?: number
+        }
+        Update: {
+          created_at?: string
+          customer_name?: string
+          customer_phone?: string
+          id?: string
+          payment_method?: string
+          payment_status?: string
+          seller_id?: string
+          status?: string
+          total_amount?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "orders_seller_id_fkey"
+            columns: ["seller_id"]
+            isOneToOne: false
+            referencedRelation: "sellers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      payments: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          order_id: string
+          provider: string
+          provider_ref: string | null
+          status: string
+        }
+        Insert: {
+          amount?: number
+          created_at?: string
+          id?: string
+          order_id: string
+          provider: string
+          provider_ref?: string | null
+          status?: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          order_id?: string
+          provider?: string
+          provider_ref?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payments_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      products: {
+        Row: {
+          created_at: string
+          id: string
+          image_url: string | null
+          is_active: boolean
+          name: string
+          price: number
+          seller_id: string
+          stock_qty: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          is_active?: boolean
+          name: string
+          price?: number
+          seller_id: string
+          stock_qty?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          is_active?: boolean
+          name?: string
+          price?: number
+          seller_id?: string
+          stock_qty?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "products_seller_id_fkey"
+            columns: ["seller_id"]
+            isOneToOne: false
+            referencedRelation: "sellers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sellers: {
+        Row: {
+          business_name: string
+          created_at: string
+          currency: string
+          id: string
+          logo_url: string | null
+          plan: string
+          slug: string
+          updated_at: string
+          user_id: string
+          whatsapp_number: string
+        }
+        Insert: {
+          business_name: string
+          created_at?: string
+          currency?: string
+          id?: string
+          logo_url?: string | null
+          plan?: string
+          slug: string
+          updated_at?: string
+          user_id: string
+          whatsapp_number: string
+        }
+        Update: {
+          business_name?: string
+          created_at?: string
+          currency?: string
+          id?: string
+          logo_url?: string | null
+          plan?: string
+          slug?: string
+          updated_at?: string
+          user_id?: string
+          whatsapp_number?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

@@ -5,7 +5,10 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Shoplink — your WhatsApp shop, in one link" },
-      { name: "description", content: "A photo, a name, a price. Share one link, take orders in WhatsApp." },
+      {
+        name: "description",
+        content: "A photo, a name, a price. Share one link, take orders in WhatsApp.",
+      },
     ],
   }),
   component: Landing,
@@ -31,12 +34,13 @@ function Landing() {
           <MessageCircle className="h-3.5 w-3.5" /> Built for WhatsApp sellers
         </p>
         <h1 className="mt-6 text-4xl leading-[1.05] sm:text-6xl">
-          Your shop,<br />
+          Your shop,
+          <br />
           <span className="text-primary italic">in a single link.</span>
         </h1>
         <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-          No more "send your account number" chaos. Add a photo, a name, a price.
-          Share one link — orders land in your WhatsApp.
+          No more "send your account number" chaos. Add a photo, a name, a price. Share one link —
+          orders land in your WhatsApp.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Link
@@ -57,8 +61,16 @@ function Landing() {
         <div className="mt-20 grid gap-6 sm:grid-cols-3">
           {[
             { n: "1", t: "Add products", d: "A photo, a name, a price. Takes a minute." },
-            { n: "2", t: "Share your link", d: "your.shop/yourname — paste it in bio, status, anywhere." },
-            { n: "3", t: "Reply in WhatsApp", d: "Orders open a prefilled chat. No new app to check." },
+            {
+              n: "2",
+              t: "Share your link",
+              d: "your.shop/yourname — paste it in bio, status, anywhere.",
+            },
+            {
+              n: "3",
+              t: "Reply in WhatsApp",
+              d: "Orders open a prefilled chat. No new app to check.",
+            },
           ].map((s) => (
             <div key={s.n} className="rounded-2xl border border-border bg-card p-5">
               <div className="font-display text-3xl text-primary">{s.n}</div>

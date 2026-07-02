@@ -31,7 +31,9 @@ function OrdersPage() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("orders")
-        .select("id, customer_name, customer_phone, status, total_amount, created_at, order_items(product_name, quantity)")
+        .select(
+          "id, customer_name, customer_phone, status, total_amount, created_at, order_items(product_name, quantity)",
+        )
         .eq("seller_id", seller!.id)
         .order("created_at", { ascending: false });
       if (error) throw error;
@@ -66,7 +68,9 @@ function OrdersPage() {
       <div className="mt-4 grid grid-cols-2 gap-3">
         <div className="rounded-2xl border border-border bg-card p-4">
           <div className="text-xs uppercase tracking-wide text-muted-foreground">This month</div>
-          <div className="mt-1 font-display text-2xl">{formatMoney(monthRevenue, seller.currency)}</div>
+          <div className="mt-1 font-display text-2xl">
+            {formatMoney(monthRevenue, seller.currency)}
+          </div>
         </div>
         <div className="rounded-2xl border border-border bg-card p-4">
           <div className="text-xs uppercase tracking-wide text-muted-foreground">Pending</div>
@@ -80,16 +84,22 @@ function OrdersPage() {
         <div className="mt-6 flex flex-col items-center rounded-3xl border-2 border-dashed border-border bg-card/40 px-6 py-16 text-center">
           <Inbox className="h-8 w-8 text-muted-foreground" />
           <h2 className="mt-4 font-display text-xl">No orders yet</h2>
-          <p className="mt-1 text-sm text-muted-foreground">Share your link — orders will appear here.</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Share your link — orders will appear here.
+          </p>
         </div>
       ) : (
         <div className="mt-6 space-y-6">
           {Object.entries(groups).map(([day, items]) => (
             <div key={day}>
-              <div className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">{day}</div>
+              <div className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                {day}
+              </div>
               <div className="overflow-hidden rounded-2xl border border-border bg-card">
                 {items.map((o, i) => {
-                  const summary = o.order_items.map((it) => `${it.quantity}× ${it.product_name}`).join(", ");
+                  const summary = o.order_items
+                    .map((it) => `${it.quantity}× ${it.product_name}`)
+                    .join(", ");
                   const wa = buildWhatsappReplyLink({
                     number: o.customer_phone,
                     customerName: o.customer_name,
@@ -110,11 +120,17 @@ function OrdersPage() {
                           <div className="truncate font-medium">{o.customer_name}</div>
                           <StatusBadge status={o.status} />
                         </div>
-                        <div className="mt-0.5 truncate text-xs text-muted-foreground">{summary}</div>
-                        <div className="mt-0.5 text-xs text-muted-foreground">{formatTime(o.created_at)}</div>
+                        <div className="mt-0.5 truncate text-xs text-muted-foreground">
+                          {summary}
+                        </div>
+                        <div className="mt-0.5 text-xs text-muted-foreground">
+                          {formatTime(o.created_at)}
+                        </div>
                       </div>
                       <div className="text-right">
-                        <div className="font-medium">{formatMoney(Number(o.total_amount), seller.currency)}</div>
+                        <div className="font-medium">
+                          {formatMoney(Number(o.total_amount), seller.currency)}
+                        </div>
                         {o.status === "pending" && (
                           <div className="mt-1 inline-flex items-center gap-1 text-xs text-whatsapp">
                             <MessageCircle className="h-3 w-3" /> Reply
@@ -141,7 +157,9 @@ function StatusBadge({ status }: { status: string }) {
     cancelled: "bg-muted text-muted-foreground",
   };
   return (
-    <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide ${map[status] ?? "bg-muted text-muted-foreground"}`}>
+    <span
+      className={`rounded-full px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide ${map[status] ?? "bg-muted text-muted-foreground"}`}
+    >
       {status}
     </span>
   );

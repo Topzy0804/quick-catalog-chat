@@ -82,9 +82,9 @@
 
   /* Status — amber pending, green confirmed */
   --pending: oklch(0.92 0.085 80);
-  --pending-foreground: oklch(0.40 0.10 60);
+  --pending-foreground: oklch(0.4 0.1 60);
   --success: oklch(0.92 0.06 145);
-  --success-foreground: oklch(0.36 0.10 145);
+  --success-foreground: oklch(0.36 0.1 145);
 
   /* WhatsApp green */
   --whatsapp: oklch(0.62 0.155 150);
@@ -95,13 +95,17 @@
   * {
     border-color: var(--color-border);
   }
-  html, body {
+  html,
+  body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, .font-display {
+  h1,
+  h2,
+  h3,
+  .font-display {
     font-family: var(--font-display);
     letter-spacing: -0.01em;
   }

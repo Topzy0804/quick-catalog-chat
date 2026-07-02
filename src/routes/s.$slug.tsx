@@ -53,10 +53,18 @@ export const Route = createFileRoute("/s/$slug")({
   head: ({ loaderData }) => ({
     meta: [
       { title: loaderData ? `${loaderData.seller.business_name} — Shoplink` : "Shop" },
-      { name: "description", content: loaderData ? `Order from ${loaderData.seller.business_name} on WhatsApp.` : "" },
+      {
+        name: "description",
+        content: loaderData ? `Order from ${loaderData.seller.business_name} on WhatsApp.` : "",
+      },
       { property: "og:title", content: loaderData?.seller.business_name ?? "Shop" },
-      { property: "og:description", content: loaderData ? `Order from ${loaderData.seller.business_name} on WhatsApp.` : "" },
-      ...(loaderData?.seller.logo_url ? [{ property: "og:image", content: loaderData.seller.logo_url }] : []),
+      {
+        property: "og:description",
+        content: loaderData ? `Order from ${loaderData.seller.business_name} on WhatsApp.` : "",
+      },
+      ...(loaderData?.seller.logo_url
+        ? [{ property: "og:image", content: loaderData.seller.logo_url }]
+        : []),
     ],
   }),
   component: Storefront,
@@ -80,7 +88,12 @@ function Storefront() {
   const count = items.reduce((s, i) => s + i.qty, 0);
 
   const initials = seller.business_name
-    .split(" ").map((p) => p[0]).filter(Boolean).slice(0, 2).join("").toUpperCase();
+    .split(" ")
+    .map((p) => p[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
 
   function bump(id: string, delta: number, max: number) {
     setInterest((prev) => {
@@ -165,10 +178,18 @@ function Storefront() {
               const low = p.stock_qty > 0 && p.stock_qty <= 3;
               const out = p.stock_qty <= 0;
               return (
-                <div key={p.id} className="overflow-hidden rounded-2xl border border-border bg-card">
+                <div
+                  key={p.id}
+                  className="overflow-hidden rounded-2xl border border-border bg-card"
+                >
                   <div className="relative aspect-square bg-muted">
                     {p.image_url ? (
-                      <img src={p.image_url} alt={p.name} className="h-full w-full object-cover" loading="lazy" />
+                      <img
+                        src={p.image_url}
+                        alt={p.name}
+                        className="h-full w-full object-cover"
+                        loading="lazy"
+                      />
                     ) : (
                       <div className="flex h-full items-center justify-center text-muted-foreground">
                         <ImageIcon className="h-7 w-7" />
@@ -187,7 +208,9 @@ function Storefront() {
                   </div>
                   <div className="p-3">
                     <div className="truncate text-sm font-medium">{p.name}</div>
-                    <div className="text-sm text-primary">{formatMoney(Number(p.price), seller.currency)}</div>
+                    <div className="text-sm text-primary">
+                      {formatMoney(Number(p.price), seller.currency)}
+                    </div>
                     {!out && (
                       <div className="mt-2 flex items-center justify-between rounded-full bg-secondary px-1 py-1">
                         <button

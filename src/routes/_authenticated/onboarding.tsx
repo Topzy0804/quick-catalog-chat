@@ -58,11 +58,11 @@ function Onboarding() {
       if (logoFile) {
         const path = `${u.user.id}/logo-${Date.now()}-${logoFile.name}`;
         const { error: upErr } = await supabase.storage
-          .from("shop-assets")
+          .from("logos")
           .upload(path, logoFile, { upsert: true });
         if (upErr) throw upErr;
         const { data: signed } = await supabase.storage
-          .from("shop-assets")
+          .from("logos")
           .createSignedUrl(path, 60 * 60 * 24 * 365 * 5);
         logo_url = signed?.signedUrl ?? null;
       }
@@ -118,7 +118,10 @@ function Onboarding() {
             <input
               type="text"
               value={slug}
-              onChange={(e) => { setTouched(true); setSlug(slugify(e.target.value)); }}
+              onChange={(e) => {
+                setTouched(true);
+                setSlug(slugify(e.target.value));
+              }}
               className="mt-2 w-full rounded-md border border-input bg-card px-3 py-1.5 text-xs"
               placeholder="customize the link"
             />
@@ -141,7 +144,9 @@ function Onboarding() {
           </div>
 
           <div>
-            <Label>Logo <span className="text-muted-foreground">(optional)</span></Label>
+            <Label>
+              Logo <span className="text-muted-foreground">(optional)</span>
+            </Label>
             <label className="mt-1 flex cursor-pointer items-center gap-3 rounded-xl border border-dashed border-border bg-card p-3 hover:bg-accent">
               {logoPreview ? (
                 <img src={logoPreview} alt="" className="h-12 w-12 rounded-full object-cover" />

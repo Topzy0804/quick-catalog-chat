@@ -20,7 +20,10 @@ export function DashboardShell({
   children: ReactNode;
 }) {
   const navigate = useNavigate();
-  const shopUrl = typeof window !== "undefined" ? `${window.location.origin}/s/${seller.slug}` : `/s/${seller.slug}`;
+  const shopUrl =
+    typeof window !== "undefined"
+      ? `${window.location.origin}/s/${seller.slug}`
+      : `/s/${seller.slug}`;
 
   async function signOut() {
     await supabase.auth.signOut();
@@ -52,7 +55,9 @@ export function DashboardShell({
             </div>
           )}
           <div className="min-w-0 flex-1">
-            <div className="truncate font-display text-base font-semibold leading-tight">{seller.business_name}</div>
+            <div className="truncate font-display text-base font-semibold leading-tight">
+              {seller.business_name}
+            </div>
             <button
               onClick={copyLink}
               className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
@@ -65,22 +70,36 @@ export function DashboardShell({
             href={`/s/${seller.slug}`}
             target="_blank"
             rel="noreferrer"
-            className="rounded-full border border-border bg-card p-2 hover:bg-accent"
+            className="rounded-full flex gap-2 justify-center items-center border border-border bg-card p-2 hover:bg-accent"
             title="View shop"
           >
+            View Shop
             <ExternalLink className="h-4 w-4" />
           </a>
           <button
             onClick={signOut}
-            className="rounded-full border border-border bg-card p-2 hover:bg-accent"
+            className="rounded-full justify-center items-center gap-2 flex border border-border bg-card p-2 hover:bg-accent"
             title="Sign out"
           >
+            Log Out
             <LogOut className="h-4 w-4" />
           </button>
         </div>
         <nav className="mx-auto flex max-w-5xl gap-1 px-4 sm:px-6">
-          <TabLink to="/dashboard/products" active={active === "products"} icon={<Package className="h-4 w-4" />}>Products</TabLink>
-          <TabLink to="/dashboard/orders" active={active === "orders"} icon={<ClipboardList className="h-4 w-4" />}>Orders</TabLink>
+          <TabLink
+            to="/dashboard/products"
+            active={active === "products"}
+            icon={<Package className="h-4 w-4" />}
+          >
+            Products
+          </TabLink>
+          <TabLink
+            to="/dashboard/orders"
+            active={active === "orders"}
+            icon={<ClipboardList className="h-4 w-4" />}
+          >
+            Orders
+          </TabLink>
         </nav>
       </header>
       <main className="mx-auto max-w-5xl px-4 py-6 sm:px-6">{children}</main>
@@ -88,12 +107,24 @@ export function DashboardShell({
   );
 }
 
-function TabLink({ to, active, icon, children }: { to: string; active: boolean; icon: ReactNode; children: ReactNode }) {
+function TabLink({
+  to,
+  active,
+  icon,
+  children,
+}: {
+  to: string;
+  active: boolean;
+  icon: ReactNode;
+  children: ReactNode;
+}) {
   return (
     <Link
       to={to}
       className={`-mb-px flex items-center gap-2 border-b-2 px-3 py-3 text-sm font-medium transition ${
-        active ? "border-primary text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"
+        active
+          ? "border-primary text-foreground"
+          : "border-transparent text-muted-foreground hover:text-foreground"
       }`}
     >
       {icon}

@@ -10,7 +10,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
 import { formatMoney } from "@/lib/format";
 
 export const Route = createFileRoute("/_authenticated/dashboard/products")({
@@ -28,7 +34,13 @@ interface ProductForm {
   image_file?: File | null;
 }
 
-const emptyForm: ProductForm = { name: "", price: "", stock_qty: "0", is_active: true, image_url: null };
+const emptyForm: ProductForm = {
+  name: "",
+  price: "",
+  stock_qty: "0",
+  is_active: true,
+  image_url: null,
+};
 
 function ProductsPage() {
   const navigate = useNavigate();
@@ -116,12 +128,15 @@ function ProductGrid({
       <div className="mb-4 flex items-center justify-between">
         <h1 className="font-display text-2xl">Products</h1>
         <Button onClick={onAdd} className="rounded-full">
-          <Plus className="mr-1.5 h-4 w-4" /> Add
+          <Plus className="mr-1 h-4 w-4" /> Add Product
         </Button>
       </div>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
         {products.map((p) => (
-          <div key={p.id} className={`group overflow-hidden rounded-2xl border border-border bg-card ${!p.is_active ? "opacity-60" : ""}`}>
+          <div
+            key={p.id}
+            className={`group overflow-hidden rounded-2xl border border-border bg-card ${!p.is_active ? "opacity-60" : ""}`}
+          >
             <div className="aspect-square w-full bg-muted">
               {p.image_url ? (
                 <img src={p.image_url} alt={p.name} className="h-full w-full object-cover" />
@@ -133,7 +148,9 @@ function ProductGrid({
             </div>
             <div className="p-3">
               <div className="truncate text-sm font-medium">{p.name}</div>
-              <div className="mt-0.5 text-sm text-primary">{formatMoney(Number(p.price), seller.currency)}</div>
+              <div className="mt-0.5 text-sm text-primary">
+                {formatMoney(Number(p.price), seller.currency)}
+              </div>
               <div className="mt-1 text-xs text-muted-foreground">{p.stock_qty} in stock</div>
               <div className="mt-2 flex gap-1">
                 <button
@@ -195,9 +212,13 @@ function ProductDialog({
         const { data: u } = await supabase.auth.getUser();
         if (!u.user) throw new Error("Sign in required");
         const path = `${u.user.id}/p-${Date.now()}-${f.image_file.name}`;
-        const { error: upErr } = await supabase.storage.from("shop-assets").upload(path, f.image_file, { upsert: true });
+        const { error: upErr } = await supabase.storage
+          .from("product-images")
+          .upload(path, f.image_file, { upsert: true });
         if (upErr) throw upErr;
-        const { data: signed } = await supabase.storage.from("shop-assets").createSignedUrl(path, 60 * 60 * 24 * 365 * 5);
+        const { data: signed } = await supabase.storage
+          .from("product-images")
+          .createSignedUrl(path, 60 * 60 * 24 * 365 * 5);
         image_url = signed?.signedUrl ?? null;
       }
       const payload = {
@@ -228,7 +249,9 @@ function ProductDialog({
     <Dialog open onOpenChange={(o) => !o && onClose()}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle className="font-display text-xl">{f.id ? "Edit product" : "New product"}</DialogTitle>
+          <DialogTitle className="font-display text-xl">
+            {f.id ? "Edit product" : "New product"}
+          </DialogTitle>
         </DialogHeader>
 
         <label className="block cursor-pointer">
@@ -257,26 +280,54 @@ function ProductDialog({
         <div className="space-y-3">
           <div>
             <Label htmlFor="n">Name</Label>
-            <Input id="n" value={f.name} onChange={(e) => setF({ ...f, name: e.target.value })} className="mt-1" />
+            <Input
+              id="n"
+              value={f.name}
+              onChange={(e) => setF({ ...f, name: e.target.value })}
+              className="mt-1"
+            />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
               <Label htmlFor="p">Price</Label>
-              <Input id="p" type="number" min="0" step="0.01" value={f.price} onChange={(e) => setF({ ...f, price: e.target.value })} className="mt-1" />
+              <Input
+                id="p"
+                type="number"
+                min="0"
+                step="0.01"
+                value={f.price}
+                onChange={(e) => setF({ ...f, price: e.target.value })}
+                className="mt-1"
+              />
             </div>
             <div>
               <Label htmlFor="s">Stock</Label>
-              <Input id="s" type="number" min="0" value={f.stock_qty} onChange={(e) => setF({ ...f, stock_qty: e.target.value })} className="mt-1" />
+              <Input
+                id="s"
+                type="number"
+                min="0"
+                value={f.stock_qty}
+                onChange={(e) => setF({ ...f, stock_qty: e.target.value })}
+                className="mt-1"
+              />
             </div>
           </div>
           <div className="flex items-center justify-between rounded-lg border border-border bg-card px-3 py-2">
-            <Label htmlFor="active" className="cursor-pointer text-sm">Visible in shop</Label>
-            <Switch id="active" checked={f.is_active} onCheckedChange={(v) => setF({ ...f, is_active: v })} />
+            <Label htmlFor="active" className="cursor-pointer text-sm">
+              Visible in shop
+            </Label>
+            <Switch
+              id="active"
+              checked={f.is_active}
+              onCheckedChange={(v) => setF({ ...f, is_active: v })}
+            />
           </div>
         </div>
 
         <DialogFooter className="mt-4">
-          <Button variant="ghost" onClick={onClose}>Cancel</Button>
+          <Button variant="ghost" onClick={onClose}>
+            Cancel
+          </Button>
           <Button onClick={save} disabled={saving} className="rounded-full">
             {saving ? "Saving…" : "Save"}
           </Button>

@@ -52,7 +52,7 @@ export const Route = createFileRoute("/s/$slug")({
   },
   head: ({ loaderData }) => ({
     meta: [
-      { title: loaderData ? `${loaderData.seller.business_name} — Shoplink` : "Shop" },
+      { title: loaderData ? `${loaderData.seller.business_name} — Shopperlink` : "Shop" },
       {
         name: "description",
         content: loaderData ? `Order from ${loaderData.seller.business_name} on WhatsApp.` : "",
@@ -239,7 +239,7 @@ function Storefront() {
           </div>
         )}
         <p className="mt-8 text-center text-xs text-muted-foreground">
-          Powered by <span className="font-medium text-foreground">Shoplink</span>
+          Powered by <span className="font-medium text-foreground">Shopperlink</span>
         </p>
       </main>
 

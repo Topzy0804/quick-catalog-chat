@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { slugify } from "@/lib/format";
 
 export const Route = createFileRoute("/_authenticated/onboarding")({
-  head: () => ({ meta: [{ title: "Set up your shop — Shoplink" }] }),
+  head: () => ({ meta: [{ title: "Set up your shop — Shopperlink" }] }),
   component: Onboarding,
 });
 

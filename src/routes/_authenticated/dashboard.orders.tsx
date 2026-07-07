@@ -8,7 +8,7 @@ import { buildWhatsappReplyLink } from "@/lib/whatsapp";
 import { MessageCircle, Inbox } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/dashboard/orders")({
-  head: () => ({ meta: [{ title: "Orders — Shoplink" }] }),
+  head: () => ({ meta: [{ title: "Orders — Shopperlink" }] }),
   component: OrdersPage,
 });
 

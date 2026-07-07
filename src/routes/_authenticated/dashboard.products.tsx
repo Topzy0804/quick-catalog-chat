@@ -20,7 +20,7 @@ import {
 import { formatMoney } from "@/lib/format";
 
 export const Route = createFileRoute("/_authenticated/dashboard/products")({
-  head: () => ({ meta: [{ title: "Products — Shoplink" }] }),
+  head: () => ({ meta: [{ title: "Products — Shopperlink" }] }),
   component: ProductsPage,
 });
 

@@ -4,7 +4,7 @@ import { ArrowRight, MessageCircle } from "lucide-react";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Shoplink — your WhatsApp shop, in one link" },
+      { title: "Shopperlink — your WhatsApp shop, in one link" },
       {
         name: "description",
         content: "A photo, a name, a price. Share one link, take orders in WhatsApp.",

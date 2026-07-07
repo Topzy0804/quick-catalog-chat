@@ -67,19 +67,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Shoplink — your shop in a single link" },
+      { title: "Shopperlink — your shop in a single link" },
       {
         name: "description",
         content: "Turn your WhatsApp into a tiny shop. One link, one chat, no checkout maze.",
       },
-      { property: "og:title", content: "Shoplink — your shop in a single link" },
+      { property: "og:title", content: "Shopperlink — your shop in a single link" },
       {
         property: "og:description",
         content: "Turn your WhatsApp into a tiny shop. One link, one chat, no checkout maze.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:title", content: "Shoplink — your shop in a single link" },
+      { name: "twitter:title", content: "Shopperlink — your shop in a single link" },
       {
         name: "twitter:description",
         content: "Turn your WhatsApp into a tiny shop. One link, one chat, no checkout maze.",
